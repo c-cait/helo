@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class Nav extends Component {
     constructor(){
@@ -6,9 +7,12 @@ class Nav extends Component {
     }
 
     render(){
+
         return(
             <div>
-                Nav
+                <Link to='/dashboard'>Home</Link>
+                <Link to='/new'>New Post</Link>
+                <Link to='/'>Logout</Link>
             </div>
         )
     }
