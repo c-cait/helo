@@ -4,7 +4,23 @@ import {FaRegGrinTongueWink} from 'react-icons/fa';
 
 class Auth extends Component {
     constructor(){
-        super()
+        super();
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    handlePassword = (val) => {
+        this.setState({
+            password: val
+        })
+    }
+
+    handleUsername = (val) => {
+        this.setState({
+            username: val
+        })
     }
 
     render(){
@@ -16,11 +32,21 @@ class Auth extends Component {
 
                     <form>
                         <div className='input'>
-                            Username: <input className='input-box'></input>
+                            Username: 
+                            <input 
+                            type='text'
+                            onChange={e => this.handleUsername(e.target.value)}
+                            className='input-box'/>
                         </div> 
+
                         <div className='input'>
-                            Password: <input className='input-box'></input>
+                            Password: 
+                            <input 
+                            type='password'
+                            onChange={e => this.handlePassword(e.target.value)}
+                            className='input-box'/>
                         </div>
+
                         <button className='input-btn right'>Login</button>
                         <button className='input-btn left'>Register</button>
                     </form>
