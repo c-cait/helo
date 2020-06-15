@@ -16,7 +16,8 @@ module.exports = {
         if(authenticated){
             req.session.user = {
                 userId: user[0].id,
-                username: user[0].username
+                username: user[0].username,
+                profile_pic: user[0].profile_pic
             }
             return res.status(200).send(req.session.user)
         } else {
@@ -38,13 +39,26 @@ module.exports = {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(password, salt)
 
-        const newUser = await db.register_user(username, hash)
+        const random = Math.floor((Math.random() * 1000) + 1)
+
+        const profile_pic = `https://robohash.org/${random}`
+
+        const newUser = await db.register_user(username, hash, profile_pic)
 
         req.session.user = {
             userId: newUser[0].id,
-            username: newUser[0].username
+            username: newUser[0].username,
+            profile_pic: newUser[0].profile_pic
         }
 
         return res.status(200).send(req.session.user)
+    },
+
+    getUser: (req, res) => {
+        if(req.session.user){
+            res.status(200).send(req.session.user)
+        } else {
+            res.sendStatus(400)
+        }
     }
 }

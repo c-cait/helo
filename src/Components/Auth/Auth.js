@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './Auth.css';
 import {FaRegGrinTongueWink} from 'react-icons/fa';
 import Axios from 'axios';
+import {connect} from 'react-redux';
+import {user} from '../../redux/reducer';
 
 class Auth extends Component {
     constructor(){
@@ -30,7 +32,10 @@ class Auth extends Component {
         console.log('pre register')
         Axios.post('/api/auth/register', {username, password})
         .then( res => {
+            const {userId, username, profile_pic} = res.data
+            this.props.user(userId, username, profile_pic)
             this.props.history.push('/dashboard')
+            
         })
         .catch(err => {
             console.log(err)
@@ -40,9 +45,11 @@ class Auth extends Component {
     login = (e) => {
         e.preventDefault();
         const { username, password } = this.state
-        console.log('pre login')
         Axios.post('/api/auth/login', {username, password})
         .then( res => {
+            console.log(res.data)
+            const {userId, username, profile_pic } = res.data
+            this.props.user(userId, username, profile_pic)
             this.props.history.push('/dashboard')
         })
         .catch(err => {
@@ -89,4 +96,6 @@ class Auth extends Component {
     }
 }
 
-export default Auth;
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps, {user})(Auth);
