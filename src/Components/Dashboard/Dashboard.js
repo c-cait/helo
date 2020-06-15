@@ -6,8 +6,15 @@ class Dashboard extends Component {
     constructor(){
         super();
         this.state = {
-            input: ''
+            userPosts: true,
+            search: ''
         }
+    }
+
+    handleSearch = (val) => {
+        this.setState({
+            search: val
+        })
     }
 
     render(){
@@ -19,6 +26,7 @@ class Dashboard extends Component {
                         className='input-box-dashboard'
                         type='text'
                         placeholder='Search By Title'
+                        onChange={(e) => this.handleSearch(e.target.value)}
                         ></input>
                         <button className='search-btn'>
                             <FiSearch className='search-icon'/>
@@ -30,6 +38,7 @@ class Dashboard extends Component {
                     <div className='my-posts'>
                         My Posts
                         <input 
+                        value = {this.state.userPosts}
                         type='checkbox'>
                         </input>
                     </div>

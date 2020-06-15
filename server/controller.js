@@ -60,5 +60,38 @@ module.exports = {
         } else {
             res.sendStatus(400)
         }
+    },
+
+    getPosts: async (req, res) => {
+        const db = req.app.get('db')
+        const {userPosts, search} = req.query
+        
+        let posts;
+
+        // if(!req.session.user){
+        //     return res.sendStatus(404)
+        // }
+
+        // const userId = req.sesion.user
+
+        //userposts is true and there is a search
+       if(userPosts === 'true' && search !== ''){
+           //respond with all posts where the title contains the search
+           posts = await db.get_all_and_search(search)
+       } 
+        //userposts is false and there is no search 
+       else if(userPosts === 'false' && search === ''){
+           //respond with all the posts that do NOT contain the current user
+           posts = await db.get_all_posts_not_currUser(userId)
+       }
+    //    else if(userPosts === 'false' && search !== ''){
+    //        //respond with all the posts the do NOT contain the current user and where the title contains the search 
+    //    }
+    //    else if(userPosts === 'true' && search === ''){
+    //        //respond with all the posts
+    //    }
+       res.status(200).send(posts)
+
+       
     }
 }
