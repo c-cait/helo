@@ -54,44 +54,61 @@ module.exports = {
         return res.status(200).send(req.session.user)
     },
 
-    getUser: (req, res) => {
-        if(req.session.user){
-            res.status(200).send(req.session.user)
-        } else {
-            res.sendStatus(400)
-        }
-    },
-
     getPosts: async (req, res) => {
         const db = req.app.get('db')
         const {userPosts, search} = req.query
         
         let posts;
 
-        // if(!req.session.user){
-        //     return res.sendStatus(404)
-        // }
+        if(!req.session.user){
+            return res.sendStatus(404)
+        }
 
-        // const userId = req.sesion.user
+        //const userId = req.session.user.userId
+
+        console.log(req.session.user)
+        
 
         //userposts is true and there is a search
        if(userPosts === 'true' && search !== ''){
            //respond with all posts where the title contains the search
-           posts = await db.get_all_and_search(search)
+           posts = await db.get_all_users_and_search(search)
        } 
         //userposts is false and there is no search 
        else if(userPosts === 'false' && search === ''){
            //respond with all the posts that do NOT contain the current user
-           posts = await db.get_all_posts_not_currUser(userId)
+           posts = await db.get_all_posts_not_currUser(req.session.user.userId)
        }
-    //    else if(userPosts === 'false' && search !== ''){
-    //        //respond with all the posts the do NOT contain the current user and where the title contains the search 
-    //    }
-    //    else if(userPosts === 'true' && search === ''){
-    //        //respond with all the posts
-    //    }
+       else if(userPosts === 'false' && search !== ''){
+             //respond with all the posts the do NOT contain the current user and where the title contains the search 
+            posts = await db.get_search_not_currUser(req.session.user.userId, search)
+       }
+       else if(userPosts === 'true' && search === ''){
+           //respond with all the posts
+           posts = await db.get_all_users_and_posts()
+       }
        res.status(200).send(posts)
+    },
 
-       
+    getPost: async (req, res) => {
+        const db = req.app.get('db')
+
+        const { postId } = req.params
+
+        post = await db.get_post(postId)
+
+        res.status(200).send(post[0])
+    },
+
+    createPost: async (req,res) => {
+        const db = req.app.get('db')
+
+        const {title, img, content} = req.body
+
+        const {author_id} = req.params
+
+        const newPost = await db.create_post(title, img, content, author_id);
+
+        res.status(200).send(newPost)
     }
 }

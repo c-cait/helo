@@ -7,6 +7,7 @@
     justify-content: center;
     background-image: linear-gradient(to right, #FF70A6, #FF9770, #FFD670, #E9FF70);
     text-align: center;
+    min-width: 672px;
 }
 
 .auth-section{

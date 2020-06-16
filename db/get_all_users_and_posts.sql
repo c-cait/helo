@@ -8,5 +8,4 @@ users.id,
 users.username,
 users.profile_pic
 FROM posts
-INNER JOIN users ON posts.author_id = users.id
-WHERE users.id != $1;
+INNER JOIN users ON posts.author_id = users.id;

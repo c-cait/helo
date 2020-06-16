@@ -1,0 +1,40 @@
+.new-post-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.new-post-section{
+    margin-top: 30px;
+    padding: 10px 0px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40vh;
+    width: 50%;
+    justify-content: space-between;
+    border: 2px solid hotpink;
+    border-radius: 10px;
+    font-size: 36px;
+    box-shadow: 0 0 10px gray;
+}
+
+.new-post-input{
+    width: 80%;
+    height: 30px;
+    border: 1px solid gray;
+    font-size: 18px;
+}
+
+.new-post-btn{
+    font-size: 20px;
+    background: orange;
+    color: white;
+    border: none;
+    height: 40px;
+    width: 80px;
+    border: 2px solid hotpink;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}

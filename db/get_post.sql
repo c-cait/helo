@@ -1,4 +1,4 @@
-SELECT
+select 
 posts.post_id,
 posts.title,
 posts.img,
@@ -7,6 +7,6 @@ posts.content,
 users.id,
 users.username,
 users.profile_pic
-FROM posts
+from posts
 INNER JOIN users ON posts.author_id = users.id
-WHERE users.id != $1;
+WHERE posts.post_id = $1;

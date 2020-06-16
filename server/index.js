@@ -20,11 +20,12 @@ app.use(
 )
 
 //auth endpoints
-app.post('/api/auth/register', ctrl.register)
-app.post('/api/auth/login', ctrl.login)
-app.get('/api/auth/user', ctrl.getUser)
+app.post('/api/auth/register', ctrl.register);
+app.post('/api/auth/login', ctrl.login);
 
-app.get('/api/posts/', ctrl.getPosts)
+app.get('/api/posts/', ctrl.getPosts);
+app.get('/api/post/:postId', ctrl.getPost);
+app.post('/api/post/:author_id', ctrl.createPost);
 
 massive({
     connectionString: CONNECTION_STRING,
