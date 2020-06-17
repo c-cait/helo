@@ -22,10 +22,12 @@ app.use(
 //auth endpoints
 app.post('/api/auth/register', ctrl.register);
 app.post('/api/auth/login', ctrl.login);
+app.delete('/api/auth/logout', ctrl.logout);
 
 app.get('/api/posts/', ctrl.getPosts);
 app.get('/api/post/:postId', ctrl.getPost);
 app.post('/api/post/:author_id', ctrl.createPost);
+app.delete('/api/post/:postId', ctrl.deletePost);
 
 massive({
     connectionString: CONNECTION_STRING,

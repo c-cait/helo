@@ -16,7 +16,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 10px 0px 10px;
-    box-shadow: 0 0 10px gray
+    box-shadow: 0 0 10px gray;
+    margin-bottom: 50px;
 }
 
 .search-section{

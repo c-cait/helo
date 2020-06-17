@@ -100,7 +100,7 @@ module.exports = {
         res.status(200).send(post[0])
     },
 
-    createPost: async (req,res) => {
+    createPost: async (req, res) => {
         const db = req.app.get('db')
 
         const {title, img, content} = req.body
@@ -110,5 +110,23 @@ module.exports = {
         const newPost = await db.create_post(title, img, content, author_id);
 
         res.status(200).send(newPost)
+    },
+
+    deletePost: async (req, res) => {
+        const db = req.app.get('db')
+
+        const {postId} = req.params
+
+        const deletedPost = await db.delete_post(postId)
+
+        res.sendStatus(200)
+    },
+
+    logout: (req, res) => {
+
+        req.session.destroy()
+
+        res.sendStatus(200)
+
     }
 }

@@ -5,10 +5,18 @@ import {AiOutlineHome} from 'react-icons/ai';
 import {BsFilePost} from 'react-icons/bs';
 import {IoIosPower} from 'react-icons/io';
 import {connect} from 'react-redux';
+import Axios from 'axios';
 
 class Nav extends Component {
     constructor(){
         super()
+    }
+
+    logout(){
+        Axios.delete('/api/auth/logout')
+        .then(res => {
+            console.log('ended session')
+        })
     }
 
     render(){
@@ -21,7 +29,7 @@ class Nav extends Component {
                     <div><Link to='/new'><BsFilePost className='nav-icon'/></Link></div>
                 </div>
                 
-                <Link to='/'><IoIosPower className='power-icon'/></Link>
+                <Link to='/'><IoIosPower className='power-icon' onClick={() => this.logout()}/></Link>
             </div>
         )
     }

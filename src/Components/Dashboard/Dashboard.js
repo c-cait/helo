@@ -16,6 +16,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount(){
+        console.log(this.props.id)
         Axios.get(`/api/posts/?userPosts=true&search=`)
         .then(res => {
             this.setState({
@@ -76,7 +77,6 @@ class Dashboard extends Component {
                     </div>
                 </div>
                 <div className='posts'>
-                 hello, {this.props.id}
                 {this.state.posts.map(post => (
                     <div key={post.post_id} className='post-container'>
                         <div className='post-title'>{post.title}</div>
